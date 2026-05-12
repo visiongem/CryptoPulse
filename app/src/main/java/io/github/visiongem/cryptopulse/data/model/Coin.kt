@@ -8,6 +8,7 @@ data class Coin(
     val price: Double,
     val priceChangePercentage24h: Double,
     val marketCapRank: Int,
+    val sparkline7d: List<Double> = emptyList(),
     val isFavorite: Boolean = false,
 )
 
@@ -19,4 +20,5 @@ fun CoinDto.toDomain(): Coin = Coin(
     price = currentPrice ?: 0.0,
     priceChangePercentage24h = priceChangePercentage24h ?: 0.0,
     marketCapRank = marketCapRank ?: Int.MAX_VALUE,
+    sparkline7d = sparklineIn7d?.price ?: emptyList(),
 )

@@ -99,19 +99,30 @@
 
 ---
 
-## Week 6：打磨 + 上架
+## Week 6：打磨 + 上架准备
 
-**目标**：v1.0 上 Play Store。
+**目标**：v1.0 工程层面 ready，剩下手工动作交给用户。
 
-- [ ] App Icon 设计（Figma 或委托）
-- [ ] Play Store 截图（5-8 张）
-- [ ] Play Store 文案（中英双语）
-- [ ] 隐私政策（本地优先无需上传）
-- [ ] R8 优化检查
-- [ ] 内测 → 公开测试 → 上架
-- [ ] GitHub README 加 Play Store badge
+代码侧
+- [x] Widget sparkline：CoinGecko `sparkline_in_7d` + Canvas Bitmap 渲染
+- [x] Widget per-row 点击 → deep link 到详情（cryptopulse://coin/{id}）
+- [x] MainActivity 处理 deep link：`onNewIntent` + `MutableStateFlow` + `LaunchedEffect`
+- [x] ChartRepository LRU 缓存 + 5min TTL（避免 CoinGecko rate limit）
+- [x] R8 keep rules：kotlinx.serialization、Retrofit、Glance、Coroutines、WorkManager
+- [x] App version bump 1.0.0 (versionCode 6)
 
-**Demo**：v1.0 上线，可分享。
+Ship readiness
+- [x] PRIVACY.md：本地优先隐私政策
+- [x] README：badges、功能列表、架构图、CI 状态、隐私链接
+- [x] Fastlane metadata：en-US + zh-CN（title / short / full / changelog）
+- [x] GitHub Actions CI 已就绪
+
+待用户手动完成（无法代劳）
+- [ ] App icon 精修（当前是占位脉冲图标）
+- [ ] Play Store 截图（5-8 张，真机或 emulator 录制）
+- [ ] Play Console 账号 + 签名 keystore
+- [ ] 上架内测 → 公开测试 → 正式
+- [ ] README 加 Play Store badge（上架后）
 
 ---
 

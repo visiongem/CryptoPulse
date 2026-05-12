@@ -19,4 +19,11 @@ data class CoinDto(
     val marketCapRank: Int? = null,
     @SerialName("total_volume")
     val totalVolume: Double? = null,
+    @SerialName("sparkline_in_7d")
+    val sparklineIn7d: SparklineDto? = null,
+)
+
+@Serializable
+data class SparklineDto(
+    val price: List<Double> = emptyList(),
 )

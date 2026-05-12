@@ -14,7 +14,7 @@ interface CoinGeckoApi {
         @Query("order") order: String = "market_cap_desc",
         @Query("per_page") perPage: Int = 50,
         @Query("page") page: Int = 1,
-        @Query("sparkline") sparkline: Boolean = false,
+        @Query("sparkline") sparkline: Boolean = true,
         @Query("price_change_percentage") priceChangePercentage: String = "24h",
     ): List<CoinDto>
 

@@ -8,6 +8,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,10 +27,20 @@ import io.github.visiongem.cryptopulse.feature.settings.SettingsScreen
 import io.github.visiongem.cryptopulse.feature.watchlist.WatchlistScreen
 
 @Composable
-fun CryptoPulseNavHost() {
+fun CryptoPulseNavHost(
+    deepLinkCoinId: String? = null,
+    onDeepLinkConsumed: () -> Unit = {},
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val showBottomBar = backStackEntry?.destination?.route in TopDestination.entries.map { it.route }
+
+    LaunchedEffect(deepLinkCoinId) {
+        if (!deepLinkCoinId.isNullOrEmpty()) {
+            navController.navigate("detail/$deepLinkCoinId")
+            onDeepLinkConsumed()
+        }
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

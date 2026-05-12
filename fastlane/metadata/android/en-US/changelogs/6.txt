@@ -1,0 +1,10 @@
+First public release.
+
+• Live crypto prices via Binance WebSocket
+• Real-time price flash animation
+• Resizable home-screen widget (small / medium / large)
+• 7-day sparkline on the large widget
+• Detail screen with minimal line chart (1D/7D/30D/1Y) and touch-to-inspect crosshair
+• Watchlist with local-only storage
+• Dark / light theme follows your system
+• 100% local-first, no account, no tracking

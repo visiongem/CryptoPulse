@@ -41,10 +41,12 @@ class WidgetUpdater(
         val pool = if (watchlist.isNotEmpty()) filter { it.symbol in watchlist } else this
         return pool.take(MAX_WIDGET_COINS).map { coin ->
             WidgetCoinData(
+                id = coin.id,
                 symbol = coin.symbol,
                 name = coin.name,
                 price = coin.price,
                 priceChangePercentage24h = coin.priceChangePercentage24h,
+                sparkline = coin.sparkline7d,
             )
         }
     }

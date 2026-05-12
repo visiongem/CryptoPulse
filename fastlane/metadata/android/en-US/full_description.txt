@@ -1,0 +1,32 @@
+CryptoPulse is a quiet, focused crypto watchlist for Android. Install, pick the coins you care about, drop a widget on your home screen — done.
+
+WHY CRYPTOPULSE
+
+• No account. No login. No email. Open and use.
+• No tracking. We collect zero data. No analytics, no crash reports.
+• No ads. No paywall. Free and open-source.
+
+HOME-SCREEN WIDGETS
+
+Resizable home-screen widgets adapt to whatever space you give them:
+• Small — a single coin, big and readable
+• Medium — your top three picks
+• Large — your watchlist with 7-day mini charts
+
+Tap any coin on the widget to jump straight into its detail screen.
+
+REAL-TIME PRICES
+
+Inside the app, prices stream in real time over a WebSocket connection to Binance. Watch the row pulse green or red as the price moves — or turn the animation off in Settings if you prefer it still.
+
+MINIMAL CHARTS
+
+Detail screen shows a clean line chart over 1D / 7D / 30D / 1Y. Touch and hold anywhere to read the exact price at that moment. No clutter, no fifteen overlapping indicators.
+
+PRIVACY-FIRST BY DESIGN
+
+Your watchlist is stored on your device only. The app talks only to public crypto APIs (CoinGecko, Binance) to fetch prices. Nothing else.
+
+OPEN SOURCE
+
+Full source code is on GitHub: github.com/visiongem/CryptoPulse
