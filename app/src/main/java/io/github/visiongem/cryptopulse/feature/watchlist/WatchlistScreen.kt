@@ -29,7 +29,10 @@ import io.github.visiongem.cryptopulse.ui.component.ErrorState
 import io.github.visiongem.cryptopulse.ui.component.LoadingState
 
 @Composable
-fun WatchlistScreen(modifier: Modifier = Modifier) {
+fun WatchlistScreen(
+    onCoinClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
     val locator = (context.applicationContext as CryptoPulseApp).serviceLocator
 
@@ -60,6 +63,7 @@ fun WatchlistScreen(modifier: Modifier = Modifier) {
                             onFavoriteClick = {
                                 viewModel.onAction(WatchlistAction.ToggleFavorite(it))
                             },
+                            onClick = { onCoinClick(it.id) },
                         )
                         HorizontalDivider()
                     }

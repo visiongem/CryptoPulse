@@ -1,5 +1,6 @@
 package io.github.visiongem.cryptopulse.feature.markets.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,12 +39,14 @@ fun CoinRow(
     coin: Coin,
     rippleEnabled: Boolean,
     onFavoriteClick: (String) -> Unit,
+    onClick: (Coin) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .then(if (rippleEnabled) Modifier.priceFlash(value = coin.price) else Modifier)
+            .clickable { onClick(coin) }
             .padding(horizontal = 8.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -118,6 +121,7 @@ private fun CoinRowFavoritedPreview() {
             ),
             rippleEnabled = true,
             onFavoriteClick = {},
+            onClick = {},
         )
     }
 }
@@ -139,6 +143,7 @@ private fun CoinRowUnfavoritedPreview() {
             ),
             rippleEnabled = true,
             onFavoriteClick = {},
+            onClick = {},
         )
     }
 }

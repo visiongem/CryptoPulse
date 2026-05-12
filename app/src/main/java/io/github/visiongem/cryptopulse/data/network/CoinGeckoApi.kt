@@ -1,7 +1,9 @@
 package io.github.visiongem.cryptopulse.data.network
 
 import io.github.visiongem.cryptopulse.data.model.CoinDto
+import io.github.visiongem.cryptopulse.data.model.MarketChartDto
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoinGeckoApi {
@@ -15,4 +17,11 @@ interface CoinGeckoApi {
         @Query("sparkline") sparkline: Boolean = false,
         @Query("price_change_percentage") priceChangePercentage: String = "24h",
     ): List<CoinDto>
+
+    @GET("coins/{id}/market_chart")
+    suspend fun getMarketChart(
+        @Path("id") id: String,
+        @Query("vs_currency") vsCurrency: String = "usd",
+        @Query("days") days: Int,
+    ): MarketChartDto
 }

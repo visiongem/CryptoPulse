@@ -22,7 +22,10 @@ import io.github.visiongem.cryptopulse.ui.component.LoadingState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MarketsScreen(modifier: Modifier = Modifier) {
+fun MarketsScreen(
+    onCoinClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
     val locator = (context.applicationContext as CryptoPulseApp).serviceLocator
 
@@ -64,6 +67,7 @@ fun MarketsScreen(modifier: Modifier = Modifier) {
                                     onFavoriteClick = {
                                         viewModel.onAction(MarketsAction.ToggleFavorite(it))
                                     },
+                                    onClick = { onCoinClick(it.id) },
                                 )
                                 HorizontalDivider()
                             }

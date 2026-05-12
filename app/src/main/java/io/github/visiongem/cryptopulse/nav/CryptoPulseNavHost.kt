@@ -14,10 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import io.github.visiongem.cryptopulse.feature.detail.CoinDetailScreen
 import io.github.visiongem.cryptopulse.feature.markets.MarketsScreen
 import io.github.visiongem.cryptopulse.feature.settings.SettingsScreen
 import io.github.visiongem.cryptopulse.feature.watchlist.WatchlistScreen
@@ -25,9 +28,14 @@ import io.github.visiongem.cryptopulse.feature.watchlist.WatchlistScreen
 @Composable
 fun CryptoPulseNavHost() {
     val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val showBottomBar = backStackEntry?.destination?.route in TopDestination.entries.map { it.route }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = { CryptoPulseBottomBar(navController) },
+        bottomBar = {
+            if (showBottomBar) CryptoPulseBottomBar(navController)
+        },
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -36,9 +44,29 @@ fun CryptoPulseNavHost() {
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            composable(TopDestination.Markets.route) { MarketsScreen() }
-            composable(TopDestination.Watchlist.route) { WatchlistScreen() }
-            composable(TopDestination.Settings.route) { SettingsScreen() }
+            composable(TopDestination.Markets.route) {
+                MarketsScreen(
+                    onCoinClick = { coinId -> navController.navigate("detail/$coinId") },
+                )
+            }
+            composable(TopDestination.Watchlist.route) {
+                WatchlistScreen(
+                    onCoinClick = { coinId -> navController.navigate("detail/$coinId") },
+                )
+            }
+            composable(TopDestination.Settings.route) {
+                SettingsScreen()
+            }
+            composable(
+                route = "detail/{coinId}",
+                arguments = listOf(navArgument("coinId") { type = NavType.StringType }),
+            ) { entry ->
+                val coinId = entry.arguments?.getString("coinId").orEmpty()
+                CoinDetailScreen(
+                    coinId = coinId,
+                    onBack = { navController.popBackStack() },
+                )
+            }
         }
     }
 }
@@ -51,8 +79,8 @@ private fun CryptoPulseBottomBar(navController: NavHostController) {
     NavigationBar {
         TopDestination.entries.forEach { destination ->
             val selected = backStackEntry?.destination?.hierarchy
-                ?.any { it.route == destination.route } == true
-                || currentRoute == destination.route
+                ?.any { it.route == destination.route } == true ||
+                currentRoute == destination.route
             NavigationBarItem(
                 selected = selected,
                 onClick = {

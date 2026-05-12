@@ -81,18 +81,21 @@
 
 ---
 
-## Week 5：K 线图（视觉中心）
+## Week 5：详情页 + K 线图（视觉中心）
 
 **目标**：极简 K 线，不堆指标。
 
-- [ ] CoinGecko `/coins/{id}/market_chart` 拉历史数据
-- [ ] Compose `Canvas` 自绘 K 线（不用第三方库）
-- [ ] 周期切换：1H / 24H / 7D / 30D / 1Y
-- [ ] 单指拖动十字线 + 该点价格 tooltip
-- [ ] 双指捏合缩放（v2 再做）
-- [ ] 颜色用 SignalPositive / SignalNegative
-
-**Demo**：点开任一币种看到 K 线，手势顺滑。
+- [x] 详情页 + Navigation Compose 路由（`detail/{coinId}`）
+- [x] CoinGecko `/coins/{id}/market_chart` 拉历史数据
+- [x] Compose Canvas 自绘价格线 + 渐变填充（不用第三方库）
+- [x] 周期切换：1D / 7D / 30D / 1Y（pill 风格选择器）
+- [x] 单指按下显示十字线 + 顶部价格 / 时间 tooltip（替换 header）
+- [x] 涨绿跌红基于首末点比较
+- [x] 列表行可点击跳详情（CoinRow.onClick）
+- [x] 详情页星标 toggle 同步 watchlist
+- [x] 详情页期间底部 NavBar 自动隐藏
+- [ ] 双指捏合缩放 → v2 再做
+- [ ] Widget sparkline → Week 6 polish
 
 ---
 

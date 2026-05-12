@@ -2,6 +2,7 @@ package io.github.visiongem.cryptopulse.di
 
 import android.content.Context
 import io.github.visiongem.cryptopulse.data.network.NetworkModule
+import io.github.visiongem.cryptopulse.data.repository.ChartRepository
 import io.github.visiongem.cryptopulse.data.repository.MarketsRepository
 import io.github.visiongem.cryptopulse.data.repository.MarketsStore
 import io.github.visiongem.cryptopulse.data.repository.TickerRepository
@@ -29,6 +30,8 @@ class ServiceLocator(context: Context) {
         tickerRepository = tickerRepository,
         scope = applicationScope,
     )
+
+    val chartRepository = ChartRepository(NetworkModule.coinGeckoApi)
 
     val widgetDataStore = WidgetDataStore(appContext)
 
