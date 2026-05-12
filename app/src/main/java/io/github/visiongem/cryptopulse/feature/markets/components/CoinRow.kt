@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import io.github.visiongem.cryptopulse.data.model.Coin
+import io.github.visiongem.cryptopulse.ui.component.priceFlash
 import io.github.visiongem.cryptopulse.ui.theme.CryptoPulseTheme
 import io.github.visiongem.cryptopulse.ui.theme.SignalNegative
 import io.github.visiongem.cryptopulse.ui.theme.SignalPositive
@@ -32,6 +33,7 @@ fun CoinRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .priceFlash(value = coin.price)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

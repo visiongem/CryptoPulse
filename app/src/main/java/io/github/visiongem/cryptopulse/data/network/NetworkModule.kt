@@ -18,10 +18,11 @@ object NetworkModule {
         coerceInputValues = true
     }
 
-    private val okHttpClient: OkHttpClient by lazy {
+    val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
+            .pingInterval(20, TimeUnit.SECONDS)
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BASIC
@@ -40,5 +41,9 @@ object NetworkModule {
 
     val coinGeckoApi: CoinGeckoApi by lazy {
         retrofit.create(CoinGeckoApi::class.java)
+    }
+
+    val binanceWebSocketClient: BinanceWebSocketClient by lazy {
+        BinanceWebSocketClient(okHttpClient)
     }
 }

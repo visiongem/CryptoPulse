@@ -22,12 +22,13 @@ import io.github.visiongem.cryptopulse.ui.component.LoadingState
 @Composable
 fun MarketsScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val repository = (context.applicationContext as CryptoPulseApp)
-        .serviceLocator
-        .marketsRepository
+    val locator = (context.applicationContext as CryptoPulseApp).serviceLocator
 
     val viewModel: MarketsViewModel = viewModel(
-        factory = MarketsViewModel.factory(repository),
+        factory = MarketsViewModel.factory(
+            repository = locator.marketsRepository,
+            tickerRepository = locator.tickerRepository,
+        ),
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val error = state.error

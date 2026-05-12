@@ -34,13 +34,13 @@
 
 **目标**：价格变动有视觉反馈，专属差异化点。
 
-- [ ] 接入 Binance Public WebSocket（`wss://stream.binance.com:9443/ws`）
-- [ ] WS 框架：连接管理、订阅 / 取消、断线重连、心跳
-- [ ] 价格涟漪动效（Compose `Canvas` + animateFloat）：
-    - 涨 → 绿色脉冲
-    - 跌 → 红色脉冲
-    - 200ms 渐变恢复
-- [ ] 涟漪开关（用户偏好）
+- [x] 接入 Binance Public WebSocket 组合流（`wss://stream.binance.com:9443/stream`）
+- [x] WS 框架：callbackFlow 包装、connection 生命周期跟随 Flow collector
+- [x] 指数退避重连（2/4/8/16/30s）
+- [x] OkHttp pingInterval 心跳保活
+- [x] 符号白名单（USDT 配对过滤）防止 Binance 拒绝 sub
+- [x] 价格涟漪 `Modifier.priceFlash`：涨绿跌红、800ms 渐变、首次加载不触发
+- [ ] 涟漪开关（用户偏好）→ 推到 Week 3 与 settings 一起做
 
 **Demo**：列表里能看到价格实时跳动，动效优雅克制。
 
