@@ -15,6 +15,7 @@ mmkv = "2.0.2"
 coil = "2.7.0"
 glance = "1.1.1"
 datastore = "1.1.1"
+work = "2.10.0"
 junit = "4.13.2"
 assertj = "3.26.3"
 
@@ -42,6 +43,7 @@ mmkv = { group = "com.tencent", name = "mmkv", version.ref = "mmkv" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }

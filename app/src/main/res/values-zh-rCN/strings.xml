@@ -23,4 +23,6 @@
     <string name="settings_ripple_title">价格涟漪动效</string>
     <string name="settings_ripple_subtitle">价格变动时，行背景会闪一下绿色或红色。</string>
     <string name="settings_version">版本</string>
+
+    <string name="widget_description">CryptoPulse — 把你的自选币种放上桌面。</string>
 </resources>

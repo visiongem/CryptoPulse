@@ -23,4 +23,6 @@
     <string name="settings_ripple_title">Price flash animation</string>
     <string name="settings_ripple_subtitle">Pulse the row green or red when the price changes.</string>
     <string name="settings_version">Version</string>
+
+    <string name="widget_description">CryptoPulse — your watchlist on the home screen.</string>
 </resources>

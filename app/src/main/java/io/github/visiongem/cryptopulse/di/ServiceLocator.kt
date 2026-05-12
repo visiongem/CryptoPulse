@@ -7,6 +7,8 @@ import io.github.visiongem.cryptopulse.data.repository.MarketsStore
 import io.github.visiongem.cryptopulse.data.repository.TickerRepository
 import io.github.visiongem.cryptopulse.data.repository.UserPreferencesRepository
 import io.github.visiongem.cryptopulse.data.repository.WatchlistRepository
+import io.github.visiongem.cryptopulse.feature.widget.WidgetDataStore
+import io.github.visiongem.cryptopulse.feature.widget.WidgetUpdater
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -26,5 +28,14 @@ class ServiceLocator(context: Context) {
         marketsRepository = marketsRepository,
         tickerRepository = tickerRepository,
         scope = applicationScope,
+    )
+
+    val widgetDataStore = WidgetDataStore(appContext)
+
+    val widgetUpdater = WidgetUpdater(
+        context = appContext,
+        marketsRepository = marketsRepository,
+        watchlistRepository = watchlistRepository,
+        widgetDataStore = widgetDataStore,
     )
 }

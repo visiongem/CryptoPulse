@@ -67,15 +67,17 @@
 
 **目标**：3 种尺寸的小组件，比市面上任何 App 都精致。
 
-- [ ] 小尺寸：1×1 单币种（默认 BTC）
-- [ ] 中尺寸：2×2 多币种（前 4 个自选）
-- [ ] 大尺寸：4×2 自选列表 + 24h 趋势
-- [ ] 后台刷新（30s 间隔，前台更密）
-- [ ] 点击小组件 deep link 到对应详情页
-- [ ] 主题跟随 App（暗 / 亮）
-- [ ] Bitmap 回收（应用本项目带走的经验）
+- [x] 自适应 Glance Widget：small (1 币种) / medium (3) / large (5)，自动响应尺寸
+- [x] `SizeMode.Responsive` + `LocalSize.current` 分支渲染
+- [x] WorkManager 周期任务（15min）+ 添加时立即刷新
+- [x] WidgetDataStore：单独 JSON 快照存于 appPreferences
+- [x] 透明中转 Activity 处理点击（规避华为 / EMUI 后台启动限制）
+- [x] `GlanceTheme` 自动跟随系统 light / dark
+- [x] 自选数据驱动 widget；无自选时回退 top 5 by market cap
+- [ ] Sparkline + Bitmap 渲染 → Week 5（配合 K 线）
+- [ ] 深度链接到详情页 → Week 5（详情页未做）
 
-**Demo**：能把小组件加到桌面，看起来比 Robinhood 还干净。
+**Demo**：能把小组件加到桌面，会自动按尺寸切换布局。
 
 ---
 
