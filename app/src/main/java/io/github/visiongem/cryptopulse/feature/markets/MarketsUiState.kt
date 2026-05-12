@@ -8,9 +8,13 @@ data class MarketsUiState(
     val isRefreshing: Boolean = false,
     val coins: List<Coin> = emptyList(),
     val error: AppError? = null,
+    val searchQuery: String = "",
+    val rippleEnabled: Boolean = true,
 )
 
 sealed interface MarketsAction {
     data object Refresh : MarketsAction
     data object Retry : MarketsAction
+    data class Search(val query: String) : MarketsAction
+    data class ToggleFavorite(val symbol: String) : MarketsAction
 }

@@ -1,68 +1,51 @@
-package io.github.visiongem.cryptopulse.feature.markets
+package io.github.visiongem.cryptopulse.feature.watchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import io.github.visiongem.cryptopulse.data.model.Coin
 import io.github.visiongem.cryptopulse.data.repository.MarketsStore
 import io.github.visiongem.cryptopulse.data.repository.UserPreferencesRepository
 import io.github.visiongem.cryptopulse.data.repository.WatchlistRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class MarketsViewModel(
+class WatchlistViewModel(
     private val store: MarketsStore,
     private val watchlistRepository: WatchlistRepository,
     private val userPreferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
 
-    private val searchQuery = MutableStateFlow("")
-
-    val state: StateFlow<MarketsUiState> = combine(
+    val state: StateFlow<WatchlistUiState> = combine(
         store.state,
         watchlistRepository.symbolsFlow,
         userPreferencesRepository.rippleEnabledFlow,
-        searchQuery,
-    ) { storeState, watchlist, rippleEnabled, query ->
-        val annotated = storeState.coins.map { coin ->
-            coin.copy(isFavorite = coin.symbol in watchlist)
-        }
-        MarketsUiState(
-            isLoading = storeState.isLoading && annotated.isEmpty(),
-            isRefreshing = storeState.isRefreshing,
-            coins = annotated.applySearch(query),
-            error = storeState.error,
-            searchQuery = query,
+    ) { storeState, watchlist, rippleEnabled ->
+        val watchedCoins = storeState.coins
+            .filter { it.symbol in watchlist }
+            .map { it.copy(isFavorite = true) }
+        WatchlistUiState(
+            isLoading = storeState.isLoading && watchedCoins.isEmpty(),
+            coins = watchedCoins,
+            error = storeState.error.takeIf { watchedCoins.isEmpty() },
             rippleEnabled = rippleEnabled,
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
-        initialValue = MarketsUiState(isLoading = true),
+        initialValue = WatchlistUiState(isLoading = true),
     )
 
-    fun onAction(action: MarketsAction) {
+    fun onAction(action: WatchlistAction) {
         when (action) {
-            MarketsAction.Refresh, MarketsAction.Retry -> store.refresh()
-            is MarketsAction.Search -> searchQuery.value = action.query
-            is MarketsAction.ToggleFavorite -> viewModelScope.launch {
+            WatchlistAction.Retry -> store.refresh()
+            is WatchlistAction.ToggleFavorite -> viewModelScope.launch {
                 watchlistRepository.toggle(action.symbol)
             }
-        }
-    }
-
-    private fun List<Coin>.applySearch(query: String): List<Coin> {
-        if (query.isBlank()) return this
-        val trimmed = query.trim()
-        return filter { coin ->
-            coin.symbol.contains(trimmed, ignoreCase = true) ||
-                coin.name.contains(trimmed, ignoreCase = true)
         }
     }
 
@@ -75,7 +58,7 @@ class MarketsViewModel(
             userPreferencesRepository: UserPreferencesRepository,
         ): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                MarketsViewModel(store, watchlistRepository, userPreferencesRepository)
+                WatchlistViewModel(store, watchlistRepository, userPreferencesRepository)
             }
         }
     }

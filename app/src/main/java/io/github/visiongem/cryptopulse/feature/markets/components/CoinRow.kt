@@ -8,12 +8,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarOutline
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,18 +31,34 @@ import io.github.visiongem.cryptopulse.ui.theme.SignalNegative
 import io.github.visiongem.cryptopulse.ui.theme.SignalPositive
 import io.github.visiongem.cryptopulse.util.PriceFormatter
 
+private val FAVORITE_AMBER = Color(0xFFFBBF24)
+
 @Composable
 fun CoinRow(
     coin: Coin,
+    rippleEnabled: Boolean,
+    onFavoriteClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .priceFlash(value = coin.price)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .then(if (rippleEnabled) Modifier.priceFlash(value = coin.price) else Modifier)
+            .padding(horizontal = 8.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        IconButton(onClick = { onFavoriteClick(coin.symbol) }) {
+            Icon(
+                imageVector = if (coin.isFavorite) Icons.Filled.Star else Icons.Outlined.StarOutline,
+                contentDescription = null,
+                tint = if (coin.isFavorite) {
+                    FAVORITE_AMBER
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+            )
+        }
+
         AsyncImage(
             model = coin.imageUrl,
             contentDescription = coin.symbol,
@@ -60,7 +82,10 @@ fun CoinRow(
             )
         }
 
-        Column(horizontalAlignment = Alignment.End) {
+        Column(
+            modifier = Modifier.padding(end = 8.dp),
+            horizontalAlignment = Alignment.End,
+        ) {
             Text(
                 text = PriceFormatter.formatUsd(coin.price),
                 style = MaterialTheme.typography.titleMedium,
@@ -78,7 +103,7 @@ fun CoinRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun CoinRowPositivePreview() {
+private fun CoinRowFavoritedPreview() {
     CryptoPulseTheme {
         CoinRow(
             coin = Coin(
@@ -89,14 +114,17 @@ private fun CoinRowPositivePreview() {
                 price = 102345.67,
                 priceChangePercentage24h = 2.345,
                 marketCapRank = 1,
+                isFavorite = true,
             ),
+            rippleEnabled = true,
+            onFavoriteClick = {},
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun CoinRowNegativePreview() {
+private fun CoinRowUnfavoritedPreview() {
     CryptoPulseTheme {
         CoinRow(
             coin = Coin(
@@ -107,7 +135,10 @@ private fun CoinRowNegativePreview() {
                 price = 3845.12,
                 priceChangePercentage24h = -1.78,
                 marketCapRank = 2,
+                isFavorite = false,
             ),
+            rippleEnabled = true,
+            onFavoriteClick = {},
         )
     }
 }

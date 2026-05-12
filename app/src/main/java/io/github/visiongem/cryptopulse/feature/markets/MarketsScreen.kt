@@ -1,6 +1,7 @@
 package io.github.visiongem.cryptopulse.feature.markets
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.visiongem.cryptopulse.CryptoPulseApp
 import io.github.visiongem.cryptopulse.feature.markets.components.CoinRow
+import io.github.visiongem.cryptopulse.feature.markets.components.MarketsSearchBar
 import io.github.visiongem.cryptopulse.ui.component.ErrorState
 import io.github.visiongem.cryptopulse.ui.component.LoadingState
 
@@ -26,8 +28,9 @@ fun MarketsScreen(modifier: Modifier = Modifier) {
 
     val viewModel: MarketsViewModel = viewModel(
         factory = MarketsViewModel.factory(
-            repository = locator.marketsRepository,
-            tickerRepository = locator.tickerRepository,
+            store = locator.marketsStore,
+            watchlistRepository = locator.watchlistRepository,
+            userPreferencesRepository = locator.userPreferencesRepository,
         ),
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -35,9 +38,7 @@ fun MarketsScreen(modifier: Modifier = Modifier) {
 
     Box(modifier = modifier.fillMaxSize()) {
         when {
-            state.isLoading -> {
-                LoadingState()
-            }
+            state.isLoading -> LoadingState()
             error != null && state.coins.isEmpty() -> {
                 ErrorState(
                     error = error,
@@ -45,14 +46,27 @@ fun MarketsScreen(modifier: Modifier = Modifier) {
                 )
             }
             else -> {
-                PullToRefreshBox(
-                    isRefreshing = state.isRefreshing,
-                    onRefresh = { viewModel.onAction(MarketsAction.Refresh) },
-                ) {
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(state.coins, key = { it.id }) { coin ->
-                            CoinRow(coin = coin)
-                            HorizontalDivider()
+                Column(modifier = Modifier.fillMaxSize()) {
+                    MarketsSearchBar(
+                        query = state.searchQuery,
+                        onQueryChange = { viewModel.onAction(MarketsAction.Search(it)) },
+                    )
+                    PullToRefreshBox(
+                        isRefreshing = state.isRefreshing,
+                        onRefresh = { viewModel.onAction(MarketsAction.Refresh) },
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(state.coins, key = { it.id }) { coin ->
+                                CoinRow(
+                                    coin = coin,
+                                    rippleEnabled = state.rippleEnabled,
+                                    onFavoriteClick = {
+                                        viewModel.onAction(MarketsAction.ToggleFavorite(it))
+                                    },
+                                )
+                                HorizontalDivider()
+                            }
                         }
                     }
                 }

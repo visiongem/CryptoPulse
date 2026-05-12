@@ -8,4 +8,19 @@
     <string name="error_timeout">请求超时，请稍后重试</string>
     <string name="error_api">服务异常（%1$d %2$s）</string>
     <string name="error_unknown">出错了，请稍后重试</string>
+
+    <string name="nav_markets">行情</string>
+    <string name="nav_watchlist">自选</string>
+    <string name="nav_settings">设置</string>
+
+    <string name="search_placeholder">搜索币种或符号</string>
+
+    <string name="watchlist_empty_title">暂无自选</string>
+    <string name="watchlist_empty_body">点击币种行的星星图标添加到自选。</string>
+
+    <string name="settings_section_appearance">外观</string>
+    <string name="settings_section_about">关于</string>
+    <string name="settings_ripple_title">价格涟漪动效</string>
+    <string name="settings_ripple_subtitle">价格变动时，行背景会闪一下绿色或红色。</string>
+    <string name="settings_version">版本</string>
 </resources>

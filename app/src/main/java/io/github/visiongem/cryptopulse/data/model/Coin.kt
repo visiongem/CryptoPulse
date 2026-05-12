@@ -8,6 +8,7 @@ data class Coin(
     val price: Double,
     val priceChangePercentage24h: Double,
     val marketCapRank: Int,
+    val isFavorite: Boolean = false,
 )
 
 fun CoinDto.toDomain(): Coin = Coin(

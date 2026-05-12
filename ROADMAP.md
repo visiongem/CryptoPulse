@@ -46,17 +46,20 @@
 
 ---
 
-## Week 3：自选管理 + 搜索
+## Week 3：自选管理 + 搜索 + 设置
 
-**目标**：用户能自定义关注列表。
+**目标**：用户能自定义关注列表 + 底部导航 + 偏好持久化。
 
-- [ ] 币种搜索（按 symbol / name）
-- [ ] 添加 / 删除自选
-- [ ] 排序（拖拽 reorder）
-- [ ] 本地存储（DataStore Preferences）
-- [ ] 默认推荐列表（首次安装）
+- [x] DataStore Preferences：单一 `appPreferences` 承载 watchlist + 用户偏好
+- [x] 币种搜索（symbol / name 本地过滤）
+- [x] 添加 / 删除自选（star 图标 toggle）
+- [x] 默认推荐列表（首次安装：BTC/ETH/SOL/BNB/XRP）
+- [x] 底部导航：Markets / Watchlist / Settings
+- [x] Settings 页面 + 涟漪动效开关
+- [x] `MarketsStore` 应用单例：Markets/Watchlist 共享一份数据 + 一条 WS 连接
+- [ ] 排序（拖拽 reorder）→ Week 6 polish
 
-**Demo**：用户能完全控制看到哪些币。
+**Demo**：能在三个 Tab 间切换；自选币种持久化；价格涟漪可关。
 
 ---
 
