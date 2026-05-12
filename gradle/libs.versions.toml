@@ -15,10 +15,13 @@ mmkv = "2.0.2"
 coil = "2.7.0"
 glance = "1.1.1"
 datastore = "1.1.1"
+junit = "4.13.2"
+assertj = "3.26.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -39,6 +42,8 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

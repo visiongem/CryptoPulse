@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CryptoPulse</string>
+
+    <string name="action_retry">Retry</string>
+
+    <string name="error_no_network">No network connection. Please check your network and try again.</string>
+    <string name="error_timeout">Request timed out. Please try again.</string>
+    <string name="error_api">Service unavailable (%1$d %2$s)</string>
+    <string name="error_unknown">Something went wrong. Please try again later.</string>
 </resources>

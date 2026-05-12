@@ -18,12 +18,13 @@
 
 **目标**：能看到一个币种价格列表，下拉刷新，实时显示涨跌幅。
 
-- [ ] 接入 CoinGecko REST API（`/simple/price` + `/coins/markets`）
-- [ ] 数据层：Retrofit + Repository + Result 封装
-- [ ] UI 层：LazyColumn + 币种行 Composable（图标、symbol、价格、24h%）
-- [ ] 下拉刷新（`PullToRefreshBox`）
-- [ ] 暗色 / 浅色主题对照
-- [ ] 错误状态（无网络、空列表）
+- [x] 接入 CoinGecko REST API（`/coins/markets`）
+- [x] 数据层：Retrofit + Repository + LoadResult 封装
+- [x] UI 层：LazyColumn + 币种行 Composable（图标、symbol、价格、24h%）
+- [x] 下拉刷新（`PullToRefreshBox`）
+- [x] 暗色 / 浅色主题对照
+- [x] 错误状态（无网络、超时、API 错误）
+- [x] PriceFormatter 单测覆盖
 
 **Demo**：装到手机上，能看到 BTC/ETH/SOL 等热门币的实时价格。
 
