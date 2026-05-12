@@ -92,10 +92,14 @@ GitHub Actions 在每个 push / PR 上自动跑：
 
 [MIT](./LICENSE)
 
-## 路线图
+## 文档
 
-见 [ROADMAP.md](./ROADMAP.md)。
-
-## 产品定位
-
-见 [PRODUCT.md](./PRODUCT.md)。
+| 文件 | 内容 |
+|------|------|
+| [ROADMAP.md](./ROADMAP.md) | 6 周开发路线图（已完成 v1.0）|
+| [PRODUCT.md](./PRODUCT.md) | 产品定位与差异化策略 |
+| [PRIVACY.md](./PRIVACY.md) | 隐私政策 |
+| [RELEASE.md](./RELEASE.md) | Google Play 上架完整 SOP |
+| [docs/screenshots.md](./docs/screenshots.md) | Play Store 截图录制脚本 |
+| [docs/v2-ideas.md](./docs/v2-ideas.md) | v2 候选功能与组合建议 |
+| [.claude/CLAUDE.md](./.claude/CLAUDE.md) | AI 协作配置 |

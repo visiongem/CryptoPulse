@@ -13,3 +13,14 @@ local.properties
 .kotlin/
 *.hprof
 .cursor/
+
+# Signing — keep out of repo
+keystore.properties
+*.keystore
+*.jks
+
+# fastlane runtime
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
